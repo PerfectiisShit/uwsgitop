@@ -241,13 +241,14 @@ while True:
             row_pos += 1
             vassal_spaces = max([len(v) for v in blacklisted_valssals])
             vassal_spaces = vassal_spaces if vassal_spaces >= 15 else 15
-            screen.addstr(row_pos, 0, " VASSAL(offline)%s\tLast Attempt%s" %
-                          (' ' * (vassal_spaces - 15), ' ' * 7), curses.A_REVERSE)
+            screen.addstr(row_pos, 0, " VASSAL(offline)%s\tFirst Failure%s\tLast Attempt%s" %
+                          (' ' * (vassal_spaces - 15), ' ' * 6, ' ' * 7), curses.A_REVERSE)
             row_pos += 1
             for bvassal in dd['blacklist']:
                 if bvassal['id'] in blacklisted_valssals:
-                    screen.addstr(row_pos, 0, " %s\t%s" % 
+                    screen.addstr(row_pos, 0, " %s\t%s\t%s" %
                                   (bvassal['id'].ljust(vassal_spaces),
+                                   datetime.fromtimestamp(bvassal['first_attempt']).isoformat(' '),
                                    datetime.fromtimestamp(bvassal['last_attempt']).isoformat(' ')))
                     row_pos += 1
 
